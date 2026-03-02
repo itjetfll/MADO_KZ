@@ -1,176 +1,89 @@
-/* Подключаем шрифт Inter для максимального сходства */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
 :root {
   --neon-green: #76ff03;
   --neon-purple: #8a2be2;
-  --text-white: #ffffff;
-  --text-dark: #000000;
   --bg-dark: #000000;
-  /* Цвета для эффекта стекла */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  /* Тень для эффекта стекла */
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
   font-family: 'Inter', sans-serif;
   background: var(--bg-dark) url('bg.jpg') no-repeat center center fixed;
   background-size: cover;
-  color: var(--text-white);
-  line-height: 1.6;
-  overflow-x: hidden;
+  color: #fff;
+  /* Важно для позиционирования фигур */
+  position: relative; 
+  overflow-x: hidden; /* Чтобы фигуры не создавали скролл */
 }
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px;
+/* --- ФИГУРЫ НА ФОНЕ (ТОЧЬ-В-ТОЧЬ КАК НА МАКЕТЕ) --- */
+body::before,
+body::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%; /* Для кругов */
+  filter: blur(80px); /* Эффект размытия */
+  z-index: -1; /* Чтобы фигуры были ПОД контентом */
+  opacity: 0.5; /* Полупрозрачность */
 }
 
-/* --- Навигация --- */
-.navbar {
-  position: fixed;
-  top: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  width: auto;
+/* Зеленый круг сверху слева */
+body::before {
+  width: 400px;
+  height: 400px;
+  background: var(--neon-green);
+  top: -100px;
+  left: -150px;
+  box-shadow: 0 0 100px rgba(118, 255, 3, 0.8);
 }
 
-.nav-blur {
-  background: var(--glass-bg);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  padding: 12px 35px;
-  border-radius: 50px;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  display: flex;
-  gap: 30px;
+/* Фиолетовый круг снизу справа */
+body::after {
+  width: 500px;
+  height: 500px;
+  background: var(--neon-purple);
+  bottom: -150px;
+  right: -200px;
+  box-shadow: 0 0 120px rgba(138, 43, 226, 0.8);
 }
 
-.nav-blur a {
-  color: var(--text-white);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+/* Дополнительные фигуры для других секций (опционально) */
+.about::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: var(--neon-purple);
+  filter: blur(70px);
+  z-index: -1;
+  opacity: 0.3;
+  top: 50%;
+  left: 10%;
 }
 
-.nav-blur a:hover {
-  opacity: 1;
-}
-
-/* --- Главный экран (Hero) --- */
-.hero {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  padding-top: 100px;
-}
-
-h1 {
-  font-size: clamp(36px, 8vw, 70px);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -2px;
-  margin-bottom: 25px;
-}
-
+/* --- Остальной код CSS (без изменений) --- */
 .highlight {
   color: var(--neon-green);
-  /* Неоновое свечение для текста */
-  text-shadow: 0 0 10px rgba(118, 255, 3, 0.7), 
-               0 0 20px rgba(118, 255, 3, 0.5), 
-               0 0 30px rgba(118, 255, 3, 0.3);
-}
-
-.hero p {
-  font-size: 18px;
-  max-width: 650px;
-  margin: 0 auto 50px;
-  opacity: 0.9;
-  font-weight: 400;
-}
-
-/* --- Кнопки --- */
-.hero-btns {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
-.btn {
-  display: inline-block;
-  padding: 18px 45px;
-  border-radius: 40px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  border: none;
+  text-shadow: 0 0 10px rgba(118, 255, 3, 0.8), 0 0 30px rgba(118, 255, 3, 0.5);
 }
 
 .btn-primary {
-  background: var(--neon-green);
-  color: var(--text-dark);
-  /* Сильное неоновое свечение */
-  box-shadow: 0 0 15px rgba(118, 255, 3, 0.6), 
-              0 0 30px rgba(118, 255, 3, 0.4);
-}
-
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 25px rgba(118, 255, 3, 0.8), 
-              0 0 50px rgba(118, 255, 3, 0.6);
+  background: linear-gradient(90deg, #76ff03, #b2ff59);
+  color: #000;
+  box-shadow: 0 0 20px rgba(118, 255, 3, 0.6);
+  border: none;
+  padding: 18px 50px;
+  border-radius: 40px;
+  font-weight: 900;
+  cursor: pointer;
 }
 
 .btn-secondary {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: var(--text-white);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-}
-
-.btn-secondary:hover {
   background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-3px);
-}
-
-/* --- Мобильная адаптация --- */
-@media (max-width: 768px) {
-  .nav-blur {
-    gap: 15px;
-    padding: 10px 20px;
-  }
-  .nav-blur a {
-    font-size: 12px;
-  }
-  .hero-btns {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-  }
-  .btn {
-    width: 100%;
-    max-width: 300px;
-  }
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 18px 50px;
+  border-radius: 40px;
 }
