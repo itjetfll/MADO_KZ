@@ -1,3 +1,4 @@
+/* 1. ПОДКЛЮЧЕНИЕ ШРИФТОВ И ОБЩИЕ НАСТРОЙКИ */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
 :root {
@@ -6,26 +7,31 @@
   --bg-dark: #000000;
 }
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   background: var(--bg-dark) url('bg.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #fff;
-  /* Важно для позиционирования фигур */
+  line-height: 1.6;
   position: relative; 
-  overflow-x: hidden; /* Чтобы фигуры не создавали скролл */
+  overflow-x: hidden; /* Чтобы фигуры не создавали горизонтальный скролл */
 }
 
-/* --- ФИГУРЫ НА ФОНЕ (ТОЧЬ-В-ТОЧЬ КАК НА МАКЕТЕ) --- */
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+/* 2. ФИГУРЫ НА ФОНЕ (НЕОНОВОЕ СВЕЧЕНИЕ) */
 body::before,
 body::after {
   content: '';
   position: absolute;
-  border-radius: 50%; /* Для кругов */
-  filter: blur(80px); /* Эффект размытия */
-  z-index: -1; /* Чтобы фигуры были ПОД контентом */
-  opacity: 0.5; /* Полупрозрачность */
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1; 
+  opacity: 0.5;
 }
 
 /* Зеленый круг сверху слева */
@@ -48,42 +54,73 @@ body::after {
   box-shadow: 0 0 120px rgba(138, 43, 226, 0.8);
 }
 
-/* Дополнительные фигуры для других секций (опционально) */
-.about::before {
-  content: '';
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  background: var(--neon-purple);
-  filter: blur(70px);
-  z-index: -1;
-  opacity: 0.3;
-  top: 50%;
-  left: 10%;
+/* 3. НАВИГАЦИЯ (GLASSMORPHISM) */
+.navbar { position: fixed; top: 20px; width: 100%; z-index: 100; display: flex; justify-content: center; }
+.nav-blur { 
+    background: rgba(255,255,255,0.05); 
+    backdrop-filter: blur(15px); 
+    padding: 10px 30px; 
+    border-radius: 30px; 
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.nav-blur a { color: #fff; text-decoration: none; margin: 0 15px; font-size: 14px; opacity: 0.8; transition: 0.3s; }
+.nav-blur a:hover { opacity: 1; color: var(--neon-green); }
+
+/* 4. ГЛАВНЫЙ ЭКРАН (HERO) */
+.hero { height: 100vh; display: flex; align-items: center; text-align: center; }
+h1 { font-size: clamp(40px, 10vw, 70px); font-weight: 900; line-height: 1; margin-bottom: 20px; }
+.highlight { 
+    color: var(--neon-green); 
+    text-shadow: 0 0 10px rgba(118, 255, 3, 0.8), 0 0 30px rgba(118, 255, 3, 0.5);
 }
 
-/* --- Остальной код CSS (без изменений) --- */
-.highlight {
-  color: var(--neon-green);
-  text-shadow: 0 0 10px rgba(118, 255, 3, 0.8), 0 0 30px rgba(118, 255, 3, 0.5);
+/* 5. КНОПКИ */
+.btn { display: inline-block; padding: 15px 45px; border-radius: 35px; text-decoration: none; font-weight: 900; transition: 0.3s; border: none; cursor: pointer; }
+.btn-primary { 
+    background: linear-gradient(90deg, #76ff03, #b2ff59); 
+    color: #000; 
+    box-shadow: 0 0 20px rgba(118, 255, 3, 0.6);
 }
-
-.btn-primary {
-  background: linear-gradient(90deg, #76ff03, #b2ff59);
-  color: #000;
-  box-shadow: 0 0 20px rgba(118, 255, 3, 0.6);
-  border: none;
-  padding: 18px 50px;
-  border-radius: 40px;
-  font-weight: 900;
-  cursor: pointer;
+.btn-secondary { 
+    background: rgba(255,255,255,0.1); 
+    color: #fff; 
+    border: 1px solid rgba(255,255,255,0.2); 
+    backdrop-filter: blur(10px);
 }
+.btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(118, 255, 3, 0.4); }
 
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  padding: 18px 50px;
-  border-radius: 40px;
+/* 6. КАРТОЧКИ СЕКЦИИ "О НАС" */
+.grid-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
+.card { background: #fff; color: #000; padding: 40px 30px 30px; border-radius: 25px; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+.badge { position: absolute; top: -15px; left: 20px; padding: 8px 25px; border-radius: 12px; font-weight: 900; text-transform: uppercase; font-size: 14px; }
+.badge-green { background: var(--neon-green); color: #000; }
+.badge-purple { background: var(--neon-purple); color: #fff; }
+
+/* 7. СТРУКТУРА УПРАВЛЕНИЯ */
+.row-list { display: flex; flex-direction: column; gap: 15px; max-width: 800px; margin: 0 auto; }
+.row-item { padding: 25px; border-radius: 20px; text-align: center; color: #000; transition: 0.3s; }
+.row-item strong { display: block; font-size: 22px; margin-bottom: 5px; }
+.row-item.green { background: linear-gradient(90deg, #76ff03, #b2ff59); }
+.row-item.purple { background: var(--neon-purple); color: #fff; }
+.row-item.light { background: #ccff90; }
+
+/* 8. ГЕОГРАФИЯ И СТАТИСТИКА */
+.stats { display: flex; justify-content: center; gap: 30px; margin: 60px 0; }
+.circle { width: 180px; height: 180px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #000; text-align: center; padding: 20px; }
+.c-green { background: var(--neon-green); }
+.c-white { background: #fff; }
+.c-purple { background: var(--neon-purple); color: #fff; }
+.circle b { font-size: 36px; line-height: 1; }
+.circle p { font-size: 14px; font-weight: 700; margin-top: 5px; }
+
+.section-title { text-align: center; margin-bottom: 50px; font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+.cta { text-align: center; margin-top: 100px; padding-bottom: 100px; }
+
+/* 9. АДАПТИВНОСТЬ */
+@media (max-width: 768px) {
+    .grid-cards { grid-template-columns: 1fr; }
+    .stats { flex-direction: column; align-items: center; }
+    .hero { padding-top: 80px; }
+    h1 { font-size: 40px; }
+    .circle { width: 150px; height: 150px; }
 }
