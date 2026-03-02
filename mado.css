@@ -125,40 +125,35 @@ h1 { font-size: clamp(40px, 10vw, 70px); font-weight: 900; line-height: 1; margi
     .circle { width: 150px; height: 150px; }
 }
 
-/* --- БЕГУЩАЯ СТРОКА --- */
+/* --- ИСПРАВЛЕННАЯ БЕГУЩАЯ СТРОКА --- */
 .ticker {
+    background: rgba(118, 255, 3, 0.1);
+    padding: 20px 0;
+    white-space: nowrap; /* Запрещает перенос текста на новую строку */
+    overflow: hidden;    /* Прячет всё, что не влезает в экран */
+    border-top: 1px solid var(--neon-green);
+    border-bottom: 1px solid var(--neon-green);
     width: 100%;
-    overflow: hidden;
-    background: rgba(118, 255, 3, 0.05); /* Еле заметный зеленый фон */
-    border-top: 1px solid rgba(118, 255, 3, 0.2);
-    border-bottom: 1px solid rgba(118, 255, 3, 0.2);
-    padding: 15px 0;
-    margin: 40px 0;
-    white-space: nowrap;
+    display: flex;
 }
 
 .ticker-wrapper {
-    display: inline-block;
-    animation: ticker-move 20s linear infinite;
+    display: flex;       /* Выстраивает элементы в один ряд */
+    flex-shrink: 0;      /* Не дает элементам сжиматься */
+    animation: scroll 20s linear infinite;
 }
 
-.ticker-item {
-    display: inline-block;
-    padding: 0 30px;
+.ticker-wrapper span {
     font-size: 24px;
     font-weight: 900;
     color: var(--neon-green);
-    text-transform: uppercase;
-    /* Неоновое свечение текста как на макете */
-    text-shadow: 0 0 10px rgba(118, 255, 3, 0.5);
+    padding-right: 50px; /* Отступ между фразами */
+    text-shadow: 0 0 10px var(--neon-green);
+    display: inline-block;
 }
 
-@keyframes ticker-move {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* Остановка при наведении */
-.ticker:hover .ticker-wrapper {
-    animation-play-state: paused;
+/* Анимация должна двигать строку ровно на половину её длины */
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
